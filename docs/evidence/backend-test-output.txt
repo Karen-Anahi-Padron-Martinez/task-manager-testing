@@ -1,0 +1,65 @@
+# Salida de 'npm test' en backend/ (Jest --verbose --coverage)
+# Fecha: 2026-11-04 17:14 CST  Node: v22.23.4
+
+PASS tests/api.test.js
+  health
+    ✓ GET /health returns 200 (32 ms)
+  task API - authentication
+    ✓ rejects task creation without authentication (16 ms)
+    ✓ rejects an invalid token (4 ms)
+  task API - validation
+    ✓ creates a task with a valid title (5 ms)
+    ✓ rejects an empty (whitespace-only) title (5 ms)
+    ✓ rejects a missing title (4 ms)
+    ✓ rejects a title with the wrong type (3 ms)
+    ✓ rejects a title over 120 characters (4 ms)
+    ✓ rejects malformed JSON safely (8 ms)
+    ✓ rejects an invalid task id (3 ms)
+    ✓ returns 404 for a task id that does not exist (2 ms)
+  task API - ownership (broken object-level authorization)
+    ✓ lets the owner read their own task (4 ms)
+    ✓ does not let one user read another user task (4 ms)
+    ✓ does not let one user update another user task (5 ms)
+    ✓ uses the same response for "not yours" and "does not exist" (6 ms)
+    ✓ ignores an ownerId sent by the client (7 ms)
+    ✓ ignores an ownerId sent when creating a task (3 ms)
+  task API - update
+    ✓ marks a task as completed (5 ms)
+    ✓ rejects a non-boolean completed value (9 ms)
+  task API - hostile-looking input is treated as plain text
+    ✓ stores and returns "' OR '1'='1" unchanged as text (3 ms)
+    ✓ stores and returns "<script>alert(1)</script>" unchanged as text (3 ms)
+
+PASS tests/validation.test.js
+  validateTitle
+    ✓ trims a valid title (1 ms)
+    ✓ accepts a title with the minimum length (1 character)
+    ✓ accepts a title with the maximum length (120 characters)
+    ✓ rejects an empty title (5 ms)
+    ✓ rejects a blank (whitespace-only) title (1 ms)
+    ✓ rejects a title longer than the limit (121 characters) (1 ms)
+    ✓ rejects a non-string title: 42 (1 ms)
+    ✓ rejects a non-string title: null (1 ms)
+    ✓ rejects a non-string title: undefined
+    ✓ rejects a non-string title: {} (1 ms)
+    ✓ rejects a non-string title: ["x"] (1 ms)
+    ✓ rejects a non-string title: true
+    ✓ treats a SQL-looking string as ordinary text (1 ms)
+
+----------------|---------|----------|---------|---------|-------------------
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------|---------|----------|---------|---------|-------------------
+All files       |   98.71 |    83.78 |     100 |   98.71 |                   
+ src            |   98.41 |    80.64 |     100 |   98.41 |                   
+  app.js        |      98 |    80.64 |     100 |      98 | 92                
+  store.js      |     100 |      100 |     100 |     100 |                   
+ src/tasks      |     100 |      100 |     100 |     100 |                   
+  validation.js |     100 |      100 |     100 |     100 |                   
+ tests          |     100 |      100 |     100 |     100 |                   
+  helpers.js    |     100 |      100 |     100 |     100 |                   
+----------------|---------|----------|---------|---------|-------------------
+Test Suites: 2 passed, 2 total
+Tests:       34 passed, 34 total
+Snapshots:   0 total
+Time:        0.545 s, estimated 1 s
+Ran all test suites.
